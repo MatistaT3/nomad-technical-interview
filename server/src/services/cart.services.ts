@@ -1,18 +1,22 @@
 import Product from '../models/product.models';
 import ProductDetails from '../models/product-details.models';
+import DummyProduct from '../models/dummy-product.models';
 import { fetchProductsFromApi } from './api.services';
 
 export const processCart = async (products: Product[]): Promise<any[]> => {
   const allProducts = await fetchProductsFromApi();
   const productsDetails = products.map((product) => {
-    const dummyProduct = allProducts.find((dp) => dp.id === product.productId);
+    const dummyProduct: DummyProduct = allProducts.find(
+      (dp) => dp.id == product.productId
+    );
     if (dummyProduct) {
       const stock = dummyProduct.stock;
       const rating = dummyProduct.rating;
       const stockReal = Math.floor(stock / rating);
+      const name = dummyProduct.title;
       return {
         productId: product.productId,
-        name: dummyProduct.name,
+        name,
         price: product.price,
         discount: product.discount,
         quantity: product.quantity,
