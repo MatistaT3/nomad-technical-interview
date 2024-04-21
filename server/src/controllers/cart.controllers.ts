@@ -1,15 +1,15 @@
 import { Request, Response } from 'express';
 import { processCart, checkCartAvailability } from '../services/cart.services';
-import Product from '../models/product.models';
+import Items from '../models/items.models';
 
 export const addToCart = async (req: Request, res: Response) => {
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method Not Allowed' });
   }
 
-  const { products }: { products: Product[] } = req.body;
+  const { items }: { items: Items[] } = req.body;
   try {
-    const productsDetails = await processCart(products);
+    const productsDetails = await processCart(items);
 
     // Imprimir en consola los detalles del carrito recibido
     console.log('Detalles del carrito recibido:');
@@ -28,11 +28,15 @@ export const addToCart = async (req: Request, res: Response) => {
     const canReceiveCart = checkCartAvailability(productsDetails);
 
     if (!canReceiveCart) {
-      return res
-        .status(400)
-        .json({ message: 'No hay suficiente stock para completar la compra' });
+      return res.status(400).json({
+        message: 'No hay suficiente stock para completar la compra',
+        response: { canReceiveCart },
+      });
     } else {
-      res.status(200).json({ message: 'Productos recibidos correctamente' });
+      res.status(200).json({
+        message: 'Productos recibidos correctamente',
+        response: { canReceiveCart },
+      });
     }
   } catch (error) {
     console.error('Error processing cart:', error);

@@ -4,7 +4,7 @@ const DUMMY_API_URL = 'https://dummyjson.com/products';
 
 export const fetchProductsFromApi = async (): Promise<any[]> => {
   try {
-    let allProducts: any[] = [];
+    let productsInStore: any[] = [];
     let page = 1;
     let totalPages = 1;
     while (page <= totalPages) {
@@ -12,11 +12,11 @@ export const fetchProductsFromApi = async (): Promise<any[]> => {
         `${DUMMY_API_URL}?page=${page}&limit=10`
       );
       const data = response.data;
-      allProducts = [...allProducts, ...data.products];
+      productsInStore = [...productsInStore, ...data.products];
       totalPages = data.totalPages;
       page++;
     }
-    return allProducts;
+    return productsInStore;
   } catch (error) {
     throw new Error('Error fetching products from API');
   }

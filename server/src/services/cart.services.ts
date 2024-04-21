@@ -1,49 +1,42 @@
-import Product from '../models/product.models';
+import Items from '../models/items.models';
 import ProductDetails from '../models/product-details.models';
-import DummyProduct from '../models/dummy-product.models';
+import ProductInStore from '../models/product-in-store.models';
 import { fetchProductsFromApi } from './api.services';
 
-export const processCart = async (products: Product[]): Promise<any[]> => {
-  const allProducts = await fetchProductsFromApi();
-  const productsDetails = products.map((product) => {
-    const dummyProduct: DummyProduct = allProducts.find(
+export const processCart = async (items: Items[]): Promise<any[]> => {
+  const productsInStore = await fetchProductsFromApi();
+  return items.map((product) => {
+    const productInStore: ProductInStore = productsInStore.find(
       (dp) => dp.id == product.productId
     );
-    if (dummyProduct) {
-      const stock = dummyProduct.stock;
-      const rating = dummyProduct.rating;
-      const stockReal = Math.floor(stock / rating);
-      const name = dummyProduct.title;
-      return {
-        productId: product.productId,
-        name,
-        price: product.price,
-        discount: product.discount,
-        quantity: product.quantity,
-        stock,
-        rating,
-        stockReal,
-      };
-    } else {
-      return {
-        productId: product.productId,
-        name: 'Producto no encontrado',
-        price: product.price,
-        discount: product.discount,
-        quantity: product.quantity,
-        stock: 0,
-        rating: 0,
-        stockReal: 0,
-      };
-    }
+    return productInStore
+      ? {
+          productId: product.productId,
+          name: productInStore.title,
+          price: product.price,
+          discount: product.discount,
+          quantity: product.quantity,
+          stock: productInStore.stock,
+          rating: productInStore.rating,
+          stockReal: Math.floor(productInStore.stock / productInStore.rating),
+        }
+      : {
+          productId: product.productId,
+          name: 'Producto no encontrado',
+          price: product.price,
+          discount: product.discount,
+          quantity: product.quantity,
+          stock: 0,
+          rating: 0,
+          stockReal: 0,
+        };
   });
-  return productsDetails;
 };
 
 export const checkCartAvailability = (
-  productsDetails: ProductDetails[]
+  productDetails: ProductDetails[]
 ): boolean => {
-  return productsDetails.every(
+  return productDetails.every(
     (product) => product.stockReal >= product.quantity
   );
 };
