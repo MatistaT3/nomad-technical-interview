@@ -7,24 +7,24 @@ export const processCart = async (products: Products[]): Promise<any[]> => {
   const productsInStore = await fetchProductsFromApi();
   return products.map((product) => {
     const productInStore: ProductInStore = productsInStore.find(
-      (dp) => dp.id == product.productId
+      (dp) => dp.id == product.id
     );
     return productInStore
       ? {
-          productId: product.productId,
+          productId: product.id,
           name: productInStore.title,
           price: product.price,
-          discount: product.discount,
+          discount: product.discountPercentage,
           quantity: product.quantity,
           stock: productInStore.stock,
           rating: productInStore.rating,
           stockReal: Math.floor(productInStore.stock / productInStore.rating),
         }
       : {
-          productId: product.productId,
+          productId: product.id,
           name: 'Producto no encontrado',
           price: product.price,
-          discount: product.discount,
+          discount: product.discountPercentage,
           quantity: product.quantity,
           stock: 0,
           rating: 0,

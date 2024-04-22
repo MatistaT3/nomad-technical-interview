@@ -1,6 +1,6 @@
 export default interface Products {
-  productId: string;
+  id: string;
   price: number;
   quantity: number;
-  discount: number;
+  discountPercentage: number;
 }
