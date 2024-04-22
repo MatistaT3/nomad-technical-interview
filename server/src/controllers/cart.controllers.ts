@@ -1,15 +1,15 @@
 import { Request, Response } from 'express';
 import { processCart, checkCartAvailability } from '../services/cart.services';
-import Items from '../models/items.models';
+import Products from '../models/products.models';
 
 export const addToCart = async (req: Request, res: Response) => {
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method Not Allowed' });
   }
 
-  const { items }: { items: Items[] } = req.body;
+  const { products }: { products: Products[] } = req.body;
   try {
-    const productsDetails = await processCart(items);
+    const productsDetails = await processCart(products);
 
     // Imprimir en consola los detalles del carrito recibido
     console.log('Detalles del carrito recibido:');

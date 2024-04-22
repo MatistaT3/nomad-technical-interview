@@ -1,11 +1,11 @@
-import Items from '../models/items.models';
+import Products from '../models/products.models';
 import ProductDetails from '../models/product-details.models';
 import ProductInStore from '../models/product-in-store.models';
 import { fetchProductsFromApi } from './api.services';
 
-export const processCart = async (items: Items[]): Promise<any[]> => {
+export const processCart = async (products: Products[]): Promise<any[]> => {
   const productsInStore = await fetchProductsFromApi();
-  return items.map((product) => {
+  return products.map((product) => {
     const productInStore: ProductInStore = productsInStore.find(
       (dp) => dp.id == product.productId
     );

@@ -9,7 +9,7 @@ export const fetchProductsFromApi = async (): Promise<any[]> => {
     let totalPages = 1;
     while (page <= totalPages) {
       const response = await axios.get(
-        `${DUMMY_API_URL}?page=${page}&limit=10`
+        `${DUMMY_API_URL}?page=${page}&limit=100`
       );
       const data = response.data;
       productsInStore = [...productsInStore, ...data.products];
