@@ -7,15 +7,15 @@ import CheckoutButton from '@/components/CheckoutButton';
 
 export default function Home() {
   // Inicializa carrito como nulo para evitar errores
-  const [cart, setCart] = useState<any>(null);
+  const [cart, setCart] = React.useState<any>(null);
+  // Inicializa cartMessage como nulo
+  const [cartMessage, setCartMessage] = React.useState<string | null>(null);
   // Cargamos el carrito desde el localStorage despues de montar el componente
   useEffect(() => {
     const cartData = JSON.parse(localStorage.getItem('cart') || '{}');
     setCart(cartData);
   }, []);
 
-  // Inicializa cartMessage como nulo
-  const [cartMessage, setCartMessage] = React.useState<string | null>(null);
   return (
     <CartContextProvider>
       <section className='flex flex-col items-center justify-center gap-4 py-8 md:py-10'>
