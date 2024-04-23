@@ -39,7 +39,6 @@ export default function CheckoutPage() {
         products: cart.products,
       });
 
-      // Verificar el resultado y mostrar el mensaje correspondiente
       if (response.data.response.canReceiveCart === true) {
         setShippingQuote('Envío Nomad ⚡️ - $3670');
       } else {
