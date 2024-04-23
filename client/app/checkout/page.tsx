@@ -1,8 +1,6 @@
 'use client';
 import { title } from '@/components/primitives';
 import React from 'react';
-import { Button } from '@nextui-org/button';
-import { Link } from '@nextui-org/link';
 import RenderCartProducts from '@/components/RenderCartProducts';
 import QuoteShippingButton from '@/components/QuoteShippingButton';
 import ClearCartButton from '@/components/ClearCartButton';
