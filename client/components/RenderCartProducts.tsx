@@ -30,12 +30,17 @@ const RenderCartProducts: React.FC<RenderCartProductsProps> = ({ cart }) => {
     0
   );
 
+  const totalProductsPrice = productList.reduce(
+    (acc, product) => acc + product.discountedPrice,
+    0
+  );
+
   return (
     <div>
       {cart && cart.products ? (
         <div>
           <h2 className='text-left'>
-            🛒 tienes {totalProductsQuantity} productos en el carrito
+            🛒 Tienes {totalProductsQuantity} productos en el carrito
           </h2>
           <div className='gap-2 grid grid-cols-2 sm:grid-cols-1'>
             {productList.map((item, index) => (
@@ -63,6 +68,12 @@ const RenderCartProducts: React.FC<RenderCartProductsProps> = ({ cart }) => {
               </Card>
             ))}
           </div>
+          <div className='mt-2'></div>
+          <Card>
+            <CardBody>
+              <p>💸 El total del carrito es: ${totalProductsPrice}</p>
+            </CardBody>
+          </Card>
         </div>
       ) : (
         <div>

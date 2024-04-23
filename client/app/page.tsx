@@ -4,6 +4,8 @@ import { title } from '@/components/primitives';
 import CartContextProvider from '@/components/CartContext';
 import GenerateCartButton from '@/components/GenerateCartButton';
 import CheckoutButton from '@/components/CheckoutButton';
+import RenderCartProducts from '@/components/RenderCartProducts';
+import axios from 'axios';
 
 export default function Home() {
   // Inicializa carrito como nulo para evitar errores
@@ -16,6 +18,29 @@ export default function Home() {
     setCart(cartData);
   }, []);
 
+  const generateRandomCartNumber = (): number => {
+    return Math.floor(Math.random() * 20) + 1;
+  };
+
+  const handleGenerateCart = async () => {
+    try {
+      const cartNumber = generateRandomCartNumber();
+      // Realiza una solicitud GET para generar el carrito aleatorio
+      const response = await axios.get(
+        `https://dummyjson.com/carts/${cartNumber}`
+      );
+      const cartData = response.data;
+
+      localStorage.setItem('cart', JSON.stringify(cartData));
+      setCart(cartData);
+      setCartMessage(
+        `Carrito generado con éxito! :D Si no te gusta, puedes generar otro! 🛒`
+      );
+    } catch (error) {
+      console.error('Error al generar el carrito:', error);
+      setCartMessage(`Error al generar el carrito`);
+    }
+  };
   return (
     <CartContextProvider>
       <section className='flex flex-col items-center justify-center gap-4 py-8 md:py-10'>
@@ -29,11 +54,18 @@ export default function Home() {
 
         <div className='flex-direction: row flex gap-3'>
           <div>
-            <GenerateCartButton />
+            <GenerateCartButton
+              onGenerateCart={handleGenerateCart}
+              cartMessage={cartMessage}
+            />
           </div>
           <div>
             <CheckoutButton />
           </div>
+        </div>
+        <div className='mt-4'></div>
+        <div>
+          <RenderCartProducts cart={cart} />
         </div>
       </section>
     </CartContextProvider>
