@@ -2,8 +2,8 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from '@nextui-org/link';
-import { title, subtitle } from '@/components/primitives';
-import { Button, ButtonGroup } from '@nextui-org/button';
+import { title } from '@/components/primitives';
+import { Button } from '@nextui-org/button';
 
 // Creamos un contexto para el carrito
 export const CartContext = createContext<any>({ cart: {}, setCart: () => {} });
