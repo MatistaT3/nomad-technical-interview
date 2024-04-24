@@ -4,7 +4,7 @@ Este repositorio contiene el servicio de api para el comercio nomad realizado co
 
 ## Como ejecutar
 
-Estando en el terminal ubicado en la carpeta raiz nomad-commerce-main que contiene las carpetas client, server, Dockerfile, debe ejecutar los siguientes comandos
+Estando en el terminal ubicado en la carpeta raiz nomad-commerce-main que contiene las carpetas client, server, Dockerfile, y con el Docker iniciado debe ejecutar los siguientes comandos
 
 1.
 
