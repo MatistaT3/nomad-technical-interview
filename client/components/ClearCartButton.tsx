@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from '@nextui-org/button';
+import Link from 'next/link';
 
 interface ClearCartButtonProps {
   onClearCart: () => void;
@@ -7,9 +8,11 @@ interface ClearCartButtonProps {
 
 const ClearCartButton: React.FC<ClearCartButtonProps> = ({ onClearCart }) => {
   return (
-    <Button color='secondary' onClick={onClearCart}>
-      Vaciar carrito
-    </Button>
+    <Link href='/'>
+      <Button color='secondary' onClick={onClearCart}>
+        Vaciar carrito
+      </Button>
+    </Link>
   );
 };
 
